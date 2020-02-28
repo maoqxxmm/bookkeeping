@@ -4,8 +4,7 @@
   "description": "个人记账 app",
   "main": "./dist/main.js",
   "scripts": {
-    "start": "node ./scripts/start.js",
-    "startElectron": "electron ."
+    "start": "node ./scripts/start.js"
   },
   "repository": {
     "type": "git",
