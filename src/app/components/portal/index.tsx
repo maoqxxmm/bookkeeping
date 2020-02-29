@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Shell, Nav } from "@alifd/next";
+import { Shell, Nav, Message } from "@alifd/next";
 import { ipcRenderer } from "electron";
 
 export const Portal: React.FC = () => {
@@ -13,6 +13,25 @@ export const Portal: React.FC = () => {
       });
   }, []);
 
+  const addOneBill = () => {
+    ipcRenderer
+      .invoke("executeBackgroundAction", "addBill", {
+        content: "123",
+        date: new Date().getTime(),
+        type: 0,
+        categories: [],
+        reimbursable: false
+      })
+      .then((res: boolean) => {
+        if (res) {
+          Message.show({
+            type: "success",
+            title: "创建成功~"
+          });
+        }
+      });
+  };
+
   return (
     <div className="portal">
       <Shell
@@ -22,7 +41,9 @@ export const Portal: React.FC = () => {
       >
         <Shell.Branding>
           <div className="rectangular"></div>
-          <span style={{ marginLeft: 10 }}>毛球记账</span>
+          <span style={{ marginLeft: 10 }} onClick={addOneBill}>
+            毛球记账
+          </span>
         </Shell.Branding>
         <Shell.Action>
           <img

@@ -21,6 +21,10 @@ const startElectron = () => {
     }
   );
   const electronProcess = spawn(electron, ["."]);
+  electronProcess.stdout.setEncoding("utf8");
+  electronProcess.stdout.on("data", function(data) {
+    console.log(data.toString());
+  });
   electronProcess.on("close", () => {
     process.exit();
   });

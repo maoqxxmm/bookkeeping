@@ -8,8 +8,10 @@ module.exports = env => {
     },
     output: {
       filename: "main.js",
-      path: path.resolve(__dirname, "../dist")
+      path: path.resolve(__dirname, "../dist"),
+      devtoolModuleFilenameTemplate: "[absolute-resource-path]"
     },
+    devtool: "source-map",
     resolve: {
       modules: [path.resolve(__dirname, "../src"), "node_modules"],
       extensions: [".ts", ".js", ".json"]

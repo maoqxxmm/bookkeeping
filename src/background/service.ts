@@ -1,4 +1,6 @@
 import { ipcMain, IpcMainInvokeEvent } from "electron";
+import { billCollection } from "./database/bill";
+import { BillItemCreate } from "./database/schema";
 
 const handleAction = async (
   event: IpcMainInvokeEvent,
@@ -8,6 +10,9 @@ const handleAction = async (
   switch (actionName) {
     case "giveMeFive":
       return "👏👏👏";
+    case "addBill":
+      billCollection.addOneBill(actionData as BillItemCreate);
+      return true;
     default:
       return "┑(￣Д ￣)┍";
   }
