@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { initService } from "./service";
 
 const createWindow = () => {
   // 创建浏览器窗口
@@ -9,7 +10,6 @@ const createWindow = () => {
       nodeIntegration: true
     }
   });
-  console.log(win);
   // 加载页面
   win.loadURL("http://localhost:9000");
 
@@ -30,7 +30,9 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   // 在 macOs 上，当单机 dock 图标并且没有其他窗口打开时，
   // 通常在应用程序中重新创建一个窗口。
-  if (BrowserView.getAllViews().length === 0) {
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
+
+initService();
