@@ -9,12 +9,18 @@ const handleAction = async (
 ) => {
   switch (actionName) {
     case "giveMeFive":
-      return "👏👏👏";
-    case "addBill":
-      billCollection.addOneBill(actionData as BillItemCreate);
-      return true;
+      return [null, "👏👏👏"];
+    case "addOneBill":
+      try {
+        const res = await billCollection.addOneBill(
+          actionData as BillItemCreate
+        );
+        return [null, res];
+      } catch (err) {
+        return [err];
+      }
     default:
-      return "┑(￣Д ￣)┍";
+      return [null, "┑(￣Д ￣)┍"];
   }
 };
 

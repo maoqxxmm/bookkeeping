@@ -11,10 +11,15 @@ class BillCollection {
       throw Error("no collection");
     }
   }
-  addOneBill(data: BillItemCreate) {
-    this.getCollection().insertOne(data, (err, result) => {
-      console.log(err);
-      console.log(result);
+  addOneBill(data: BillItemCreate): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.getCollection().insertOne(data, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(true);
+        }
+      });
     });
   }
 }

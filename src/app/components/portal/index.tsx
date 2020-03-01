@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Shell, Nav, Message } from "@alifd/next";
 import { ipcRenderer } from "electron";
+import { giveMeFive, addOneBill } from "../../service";
 
 export const Portal: React.FC = () => {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    ipcRenderer
-      .invoke("executeBackgroundAction", "giveMeFive")
-      .then((res: string) => {
-        setName(res);
-      });
+    giveMeFive().then((res: string) => {
+      setName(res);
+    });
   }, []);
 
-  const addOneBill = () => {
-    ipcRenderer
-      .invoke("executeBackgroundAction", "addBill", {
-        content: "123",
-        date: new Date().getTime(),
-        type: 0,
-        categories: [],
-        reimbursable: false
-      })
-      .then((res: boolean) => {
-        if (res) {
-          Message.show({
-            type: "success",
-            title: "创建成功~"
-          });
-        }
-      });
+  const doAddOneBill = () => {
+    addOneBill({
+      content: "123",
+      date: new Date().getTime(),
+      type: 0,
+      categories: [],
+      reimbursable: false
+    }).then(res => {
+      if (res) {
+        Message.show({
+          type: "success",
+          title: "创建成功~"
+        });
+      }
+    });
   };
 
   return (
@@ -41,7 +38,7 @@ export const Portal: React.FC = () => {
       >
         <Shell.Branding>
           <div className="rectangular"></div>
-          <span style={{ marginLeft: 10 }} onClick={addOneBill}>
+          <span style={{ marginLeft: 10 }} onClick={doAddOneBill}>
             毛球记账
           </span>
         </Shell.Branding>
