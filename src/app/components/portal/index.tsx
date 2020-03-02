@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Shell, Nav, Message } from "@alifd/next";
-import { ipcRenderer } from "electron";
 import { giveMeFive, addOneBill } from "../../service";
+import { Page } from "./schema";
+import { Dashboard } from "../dashboard";
+import { BillList } from "../bill-list";
 
 export const Portal: React.FC = () => {
   const [name, setName] = useState<string>("");
+  const [page, setPage] = useState<Page>(Page.Dashboard);
 
   useEffect(() => {
     giveMeFive().then((res: string) => {
@@ -29,6 +32,21 @@ export const Portal: React.FC = () => {
     });
   };
 
+  const getPage = () => {
+    switch (page) {
+      case Page.Dashboard:
+        return <Dashboard />;
+      case Page.BillList:
+        return <BillList />;
+      default:
+        return null;
+    }
+  };
+
+  const onSelectPage = (key: Page) => {
+    setPage(key);
+  };
+
   return (
     <div className="portal">
       <Shell
@@ -38,34 +56,31 @@ export const Portal: React.FC = () => {
       >
         <Shell.Branding>
           <div className="rectangular"></div>
-          <span style={{ marginLeft: 10 }} onClick={doAddOneBill}>
+          <span style={{ marginLeft: 8 }} onClick={doAddOneBill}>
             毛球记账
           </span>
         </Shell.Branding>
         <Shell.Action>
-          <img
-            src="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png"
-            className="avatar"
-            alt="用户头像"
-          />
           <span style={{ marginLeft: 10 }}>{name}</span>
         </Shell.Action>
 
         <Shell.Navigation>
-          <Nav embeddable aria-label="global navigation">
-            <Nav.Item icon="account">Nav Item 1</Nav.Item>
-            <Nav.Item icon="calendar">Nav Item 2</Nav.Item>
-            <Nav.Item icon="atm">Nav Item 3</Nav.Item>
-            <Nav.Item icon="account">Nav Item 4</Nav.Item>
-            <Nav.Item icon="account">Nav Item 5</Nav.Item>
-            <Nav.Item icon="account">Nav Item 6</Nav.Item>
-            <Nav.Item icon="account">Nav Item 7</Nav.Item>
+          <Nav
+            embeddable
+            aria-label="global navigation"
+            defaultSelectedKeys={page}
+            onItemClick={onSelectPage}
+          >
+            <Nav.Item key={Page.Dashboard} icon="account">
+              概览
+            </Nav.Item>
+            <Nav.Item key={Page.BillList} icon="calendar">
+              明细
+            </Nav.Item>
           </Nav>
         </Shell.Navigation>
 
-        <Shell.Content>
-          <div style={{ minHeight: 1200, background: "#fff" }}></div>
-        </Shell.Content>
+        <Shell.Content>{getPage()}</Shell.Content>
       </Shell>
     </div>
   );
