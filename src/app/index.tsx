@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Portal } from "./components/portal";
+import { Portal } from "./views/portal";
 
 import "./styles/index.scss";
 

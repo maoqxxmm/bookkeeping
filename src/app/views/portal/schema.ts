@@ -1,4 +1,5 @@
 export enum Page {
   Dashboard = "Dashboard",
-  BillList = "BillList"
+  BillList = "BillList",
+  AddBill = "AddBill"
 }
