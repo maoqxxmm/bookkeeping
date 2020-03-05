@@ -1,12 +1,12 @@
 import React from "react";
-import { BudgetCard } from "./budget-card";
-import { AccountsCard } from "./accounts";
+import { DashboardAccounts } from "./accounts";
+import { DashboardHeader } from "./header";
 
 export const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
-      <BudgetCard />
-      <AccountsCard />
+      <DashboardHeader />
+      <DashboardAccounts />
     </div>
   );
 };

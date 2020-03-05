@@ -4,7 +4,7 @@ import { Liquid } from "@antv/g2plot";
 
 import * as styles from "./index.scss";
 
-export const BudgetCard: React.FC = () => {
+export const BudgetPlot: React.FC = () => {
   const usedPlot$ = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,12 +23,8 @@ export const BudgetCard: React.FC = () => {
 
   return (
     <Card free={true}>
-      <Card.Content className={styles["budget-card-container"]}>
+      <Card.Content className={styles["budget-plot-container"]}>
         <div className={styles["used-plot"]} ref={usedPlot$}></div>
-        <div className="budget">
-          <p className="month-budget">本月预算：2000</p>
-          <p className="budget-used">已支出：200</p>
-        </div>
       </Card.Content>
     </Card>
   );
