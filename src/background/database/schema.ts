@@ -18,3 +18,5 @@ export interface BillItem<IdType> {
 export type BillItemCreate = Omit<BillItem<string>, "_id">;
 
 export type BillItemDB = BillItem<ObjectId>;
+
+export type BillItemApp = BillItem<string>;
