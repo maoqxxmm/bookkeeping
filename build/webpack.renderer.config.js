@@ -18,7 +18,11 @@ module.exports = env => {
     devtool: "source-map",
 
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".json"]
+      extensions: [".ts", ".tsx", ".js", ".json"],
+      alias: {
+        app: path.resolve(__dirname, "../src/app/"),
+        background: path.resolve(__dirname, "../src/background/")
+      }
     },
 
     module: {
