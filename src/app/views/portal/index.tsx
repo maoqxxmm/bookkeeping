@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Shell, Nav, Message } from "@alifd/next";
-import { giveMeFive, addOneBill } from "../../service";
+import { Shell, Nav } from "@alifd/next";
+import { giveMeFive } from "../../service";
 import { Page } from "./schema";
 import { Dashboard } from "../dashboard";
 import { BillList } from "../bill-list";
+import { AddBill } from "../add-bill";
 
 export const Portal: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -15,29 +16,14 @@ export const Portal: React.FC = () => {
     });
   }, []);
 
-  const doAddOneBill = () => {
-    addOneBill({
-      content: "123",
-      date: new Date().getTime(),
-      type: 0,
-      categories: [],
-      reimbursable: false
-    }).then(res => {
-      if (res) {
-        Message.show({
-          type: "success",
-          title: "创建成功~"
-        });
-      }
-    });
-  };
-
   const getPage = () => {
     switch (page) {
       case Page.Dashboard:
         return <Dashboard />;
       case Page.BillList:
         return <BillList />;
+      case Page.AddBill:
+        return <AddBill />;
       default:
         return null;
     }
@@ -56,9 +42,7 @@ export const Portal: React.FC = () => {
       >
         <Shell.Branding>
           <div className="rectangular"></div>
-          <span style={{ marginLeft: 8 }} onClick={doAddOneBill}>
-            毛球记账
-          </span>
+          <span style={{ marginLeft: 8 }}>毛球记账</span>
         </Shell.Branding>
         <Shell.Action>
           <span style={{ marginLeft: 10 }}>{name}</span>
@@ -76,6 +60,9 @@ export const Portal: React.FC = () => {
             </Nav.Item>
             <Nav.Item key={Page.BillList} icon="calendar">
               明细
+            </Nav.Item>
+            <Nav.Item key={Page.AddBill} icon="calendar">
+              添加
             </Nav.Item>
           </Nav>
         </Shell.Navigation>
