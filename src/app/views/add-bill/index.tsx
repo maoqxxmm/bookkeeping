@@ -14,7 +14,7 @@ export const AddBill: React.FC = () => {
       if (res) {
         Message.show({
           type: "success",
-          title: "创建成功!"
+          title: "创建成功~"
         });
       }
     });
