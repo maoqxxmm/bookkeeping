@@ -1,6 +1,6 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
-import { BillCreator as BillCreatorComponent } from "./component";
+import { BillCreatorComponent } from "./component";
 
 class BillCreatorManager {
   private static Label = "bill-creator";
@@ -22,12 +22,12 @@ class BillCreatorManager {
 
   public open() {
     const hostDOM = this.getHostNode();
-    render(<BillCreatorComponent />, hostDOM);
+    render(<BillCreatorComponent onClose={this.onRemove} />, hostDOM);
   }
 
-  private onRemove() {
+  private onRemove = () => {
     unmountComponentAtNode(this.getHostNode());
-  }
+  };
 }
 
 export const BillCreator = new BillCreatorManager();
