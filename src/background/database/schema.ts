@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 export interface BillItem<IdType> {
   // 标识
   _id: IdType;
+  value: string;
   // 内容
   content: string;
   // 日期时间戳
