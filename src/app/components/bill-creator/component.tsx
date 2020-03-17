@@ -52,7 +52,7 @@ export const BillCreatorComponent: React.FC<Props> = props => {
         <Form.Item label="分类">
           <CascaderSelect></CascaderSelect>
         </Form.Item>
-        <Form.Item label="可报">
+        <Form.Item label="可报销">
           <Switch defaultChecked={false}></Switch>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: formItemLayout.labelCol.span }}>
